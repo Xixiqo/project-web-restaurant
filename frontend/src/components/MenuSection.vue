@@ -1,46 +1,49 @@
 <template>
-  <section id="menu" class="py-24 bg-[var(--color-primary-dark)]">
-    <div class="max-w-[1280px] mx-auto px-6">
-      
+  <section id="menu" class="py-24 px-4 sm:px-6 lg:px-12 relative overflow-hidden">
+    <!-- Subtle Background Gradient -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-bg-darkest)] via-[#222] to-[var(--color-bg-darkest)] opacity-50 z-0"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+
       <!-- Section Header -->
       <div class="text-center mb-16">
-        <h2 class="text-sm font-serif italic text-[var(--color-accent-gold)] tracking-[0.2em] mb-3 uppercase">Signatures</h2>
-        <h3 class="text-4xl md:text-5xl font-black text-[var(--color-text-light)] uppercase tracking-tight">Our Premium Selection</h3>
-        <div class="w-24 h-1 bg-[var(--color-accent-gold)] mx-auto mt-6 rounded-full opacity-60"></div>
+        <h2 class="text-4xl md:text-6xl font-serif text-[var(--color-text-light)]">Menu</h2>
       </div>
 
-      <!-- Menu Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        <div v-for="pizza in menuItems" :key="pizza.id" class="group bg-[var(--color-primary-light)] rounded-2xl overflow-hidden border border-[var(--color-accent-gold)]/10 hover:border-[var(--color-accent-gold)]/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,0,0,0.6)]">
-          <!-- Image -->
-          <div class="relative h-64 overflow-hidden">
-            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-500 z-10"></div>
-            <img :src="pizza.image" :alt="pizza.name" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-            <div class="absolute top-4 right-4 z-20 bg-[var(--color-primary-dark)]/90 backdrop-blur-sm text-[var(--color-accent-gold)] px-4 py-1.5 rounded-full font-bold border border-[var(--color-accent-gold)]/30">
-              {{ pizza.price }}
+      <!-- Grid Layout -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div v-for="pizza in menuItems" :key="pizza.id" class="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group flex flex-col h-full">
+
+          <!-- Pizza Image — inline, not absolute -->
+          <div class="w-full flex justify-center pt-8 pb-4 bg-white">
+            <div class="w-36 h-36 rounded-full overflow-hidden shadow-lg border-4 border-gray-100 group-hover:scale-110 transition-transform duration-500">
+              <img :src="pizza.image" :alt="pizza.name" class="w-full h-full object-cover" />
             </div>
           </div>
-          
-          <!-- Details -->
-          <div class="p-8">
-            <h4 class="text-2xl font-bold text-[var(--color-text-light)] mb-3 uppercase group-hover:text-[var(--color-accent-gold)] transition-colors">{{ pizza.name }}</h4>
-            <p class="text-[var(--color-text-muted)] mb-6 text-sm leading-relaxed font-light">{{ pizza.description }}</p>
-            <div class="flex items-center justify-between mt-auto">
-              <span class="text-xs uppercase tracking-widest text-[var(--color-accent-gold)]/80 font-semibold">{{ pizza.calories }} kcal</span>
-              <button class="text-[var(--color-text-light)] hover:text-white bg-[var(--color-accent-maroon)] hover:bg-red-800 px-5 py-2 rounded-full text-sm font-semibold uppercase tracking-wider transition-all duration-300">
-                Add to Cart
-              </button>
+
+          <!-- Content -->
+          <div class="flex flex-col flex-1 px-6 pb-6 text-center">
+            <h4 class="text-xl font-serif text-[#1e1e1e] font-bold mb-2">{{ pizza.name }}</h4>
+            <p class="text-sm text-gray-500 mb-4 line-clamp-2 flex-1">{{ pizza.description }}</p>
+
+            <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+              <span class="text-2xl font-bold text-[#1e1e1e]">{{ pizza.price }}</span>
+              <div class="flex items-center gap-3">
+                <div class="flex items-center">
+                  <span class="text-[var(--color-accent-orange)] text-sm">★</span>
+                  <span class="text-xs font-bold text-gray-700 ml-1">{{ pizza.rating }}</span>
+                </div>
+                <button class="bg-[var(--color-accent-orange)] hover:bg-[#e07a3b] text-white px-5 py-2 rounded-full text-sm font-medium transition-colors shadow-md hover:shadow-lg cursor-pointer">
+                  Order
+                </button>
+              </div>
             </div>
           </div>
+
         </div>
-      </div>
-      
-      <div class="text-center mt-16">
-        <button class="text-[var(--color-text-light)] hover:text-[var(--color-accent-gold)] border-b border-[var(--color-accent-gold)] pb-1 font-medium tracking-widest uppercase transition-all">
-          Explore Full Menu &rarr;
-        </button>
-      </div>
 
+      </div>
     </div>
   </section>
 </template>
@@ -49,27 +52,51 @@
 const menuItems = [
   {
     id: 1,
-    name: "Truffle Mushroom",
-    description: "Wild mushrooms, white truffle oil, fior di latte, aged parmesan, and a touch of fresh thyme.",
-    price: "$28",
-    calories: "780",
-    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop"
+    name: "Pizza Pepperoni",
+    description: "Classic pepperoni with extra cheese and our signature sauce.",
+    price: "$22",
+    rating: "4.9",
+    image: "https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=400&auto=format&fit=crop"
   },
   {
     id: 2,
-    name: "Classic Margherita",
-    description: "San Marzano tomato sauce, fresh buffalo mozzarella, fragrant basil leaves, and extra virgin olive oil.",
-    price: "$22",
-    calories: "650",
-    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop"
+    name: "Pizza Margherita",
+    description: "Fresh tomatoes, mozzarella, and basil. A true Italian classic.",
+    price: "$18",
+    rating: "4.8",
+    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=400&auto=format&fit=crop"
   },
   {
     id: 3,
-    name: "Spicy Diavola",
-    description: "Spicy calabrese salami, crushed red pepper flakes, fresh mozzarella, and hot honey drizzle.",
+    name: "Pizza Supreme",
+    description: "Loaded with all the fixings: meats, veggies, and extra cheese.",
     price: "$26",
-    calories: "820",
-    image: "https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=800&auto=format&fit=crop"
+    rating: "5.0",
+    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=400&auto=format&fit=crop"
+  },
+  {
+    id: 4,
+    name: "Pizza BBQ Chicken",
+    description: "Grilled chicken, BBQ sauce, red onions, and cilantro.",
+    price: "$24",
+    rating: "4.7",
+    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=400&auto=format&fit=crop"
+  },
+  {
+    id: 5,
+    name: "Pizza Hawaiian",
+    description: "Ham, pineapple, and mozzarella cheese.",
+    price: "$20",
+    rating: "4.5",
+    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=400&auto=format&fit=crop"
+  },
+  {
+    id: 6,
+    name: "Pizza Veggie",
+    description: "Bell peppers, onions, mushrooms, olives, and tomatoes.",
+    price: "$21",
+    rating: "4.6",
+    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=400&auto=format&fit=crop"
   }
 ]
 </script>
